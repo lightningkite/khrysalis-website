@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Khrysalis Website</string>
+    <string name="home">Home</string>
+    <string name="set_up">Set Up</string>
+    <string name="faq">FAQ</string>
+    <string name="docs">Docs</string>
+    <string name="khrysalis_link">https://github.com/lightningkite/khrysalis</string>
+    <string name="frequently_asked_questions">Frequently Asked Questions</string>
+    <string name="documentation">Documentation</string>
+    <string name="filter">Filter</string>
+    <string name="back">Back</string>
+</resources>
