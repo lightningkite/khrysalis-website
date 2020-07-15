@@ -15,6 +15,8 @@ import com.lightningkite.khrysalis.observables.*
 import com.lightningkite.khrysalis.observables.binding.*
 import com.lightningkite.khrysaliswebsite.R
 import com.lightningkite.khrysaliswebsite.layouts.*
+import com.lightningkite.khrysaliswebsite.models.Article
+import com.lightningkite.khrysaliswebsite.models.Articles
 
 //--- Name (overwritten on flow generation)
 @Suppress("NAME_SHADOWING")
@@ -23,7 +25,9 @@ class DocsVG(
     @unowned val stack: ObservableStack<ViewGenerator>
     //--- Extends (overwritten on flow generation)
 ) : ViewGenerator() {
-    
+
+    //--- Properties
+    val filter = StandardObservableProperty("")
     
     //--- Title (overwritten on flow generation)
     override val title: String get() = "Docs"
@@ -32,23 +36,21 @@ class DocsVG(
     override fun generate(dependency: ViewDependency): View {
         val xml = DocsXml()
         val view = xml.setup(dependency)
+
+        //--- Set Up xml.filter
+        xml.filter.bindString(filter)
         
-        //--- Set Up xml.filter (overwritten on flow generation)
-        
-        //--- Set Up xml.articles (overwritten on flow generation)
+        //--- Set Up xml.articles
         xml.articles.bind(
-            data = ConstantObservableProperty(listOf(1, 2, 3, 4)),
-            defaultValue = 1,
+            data = filter.map { f ->
+                val parts = f.split(' ')
+                Articles.docs.filter { parts.all { part -> it.contains(part) } }
+            },
+            defaultValue = Article.empty,
             makeView = label@ { observable ->
-                //--- Make Subview For xml.articles (overwritten on flow generation)
-                val cellXml = ComponentRowQuestionXml()
-                val cellView = cellXml.setup(dependency)
-                
-                //--- Set Up cellXml.container (overwritten on flow generation)
-                cellXml.container.onClick { this.cellXmlContainerClick() }
-                
-                //--- Set Up cellXml.question (overwritten on flow generation)
-                cellXml.question.bindString(ConstantObservableProperty("How do I do all the things?  It seems really hard and I need help"))
+                //--- Make Subview For xml.articles
+                val cellVg = RowArticleVG(articleObservable = observable, stack = this.stack)
+                val cellView = cellVg.generate(dependency)
                 //--- End Make Subview For xml.articles (overwritten on flow generation)
                 return@label cellView
             }
@@ -67,11 +69,6 @@ class DocsVG(
     
     //--- Actions
     
-    
-    //--- Action cellXmlContainerClick (overwritten on flow generation)
-    fun cellXmlContainerClick() {
-        stack.push(ArticleVG(stack = this.stack))
-    }
     
     //--- Body End
 }

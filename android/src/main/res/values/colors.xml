@@ -6,6 +6,7 @@
     <color name="colorAccent">#00ea7a</color>
     <color name="colorAccentHighlight">#02A557</color>
     <color name="foreground">#111</color>
+    <color name="foregroundFade">#555</color>
     <color name="background">#EEE</color>
     <color name="backgroundHighlight">#DDD</color>
     <color name="foregroundBar">#EEE</color>

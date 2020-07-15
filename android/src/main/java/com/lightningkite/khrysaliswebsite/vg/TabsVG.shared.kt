@@ -13,6 +13,8 @@ import com.lightningkite.khrysalis.*
 import com.lightningkite.khrysalis.views.*
 import com.lightningkite.khrysalis.observables.*
 import com.lightningkite.khrysalis.observables.binding.*
+import com.lightningkite.khrysalis.rx.removed
+import com.lightningkite.khrysalis.rx.until
 import com.lightningkite.khrysaliswebsite.R
 import com.lightningkite.khrysaliswebsite.layouts.*
 
@@ -38,23 +40,35 @@ class TabsVG(
         //--- Set Up xml.back (overwritten on flow generation)
         xml.back.onClick { this.backClick() }
         
-        //--- Set Up xml.title (overwritten on flow generation)
-        xml.title.bindString(ConstantObservableProperty("View Title"))
+        //--- Set Up xml.title
+        xml.title.bindString(tabs.map { it.lastOrNull()?.title ?: "" })
         
         //--- Set Up xml.rootStackHolder (overwritten on flow generation)
         xml.rootStackHolder.bindStack(dependency, tabs)
         
-        //--- Set Up xml.home (overwritten on flow generation)
+        //--- Set Up xml.home
         xml.home.onClick { this.homeClick() }
+        tabs.subscribeBy {
+            xml.home.isChecked = it.firstOrNull() is HomeVG
+        }.until(xml.home.removed)
         
-        //--- Set Up xml.setupKhrysalis (overwritten on flow generation)
+        //--- Set Up xml.setupKhrysalis
         xml.setupKhrysalis.onClick { this.setupKhrysalisClick() }
+        tabs.subscribeBy {
+            xml.setupKhrysalis.isChecked = it.firstOrNull() is SetupVG
+        }.until(xml.setupKhrysalis.removed)
         
-        //--- Set Up xml.faq (overwritten on flow generation)
+        //--- Set Up xml.faq
         xml.faq.onClick { this.faqClick() }
+        tabs.subscribeBy {
+            xml.faq.isChecked = it.firstOrNull() is FaqVG
+        }.until(xml.faq.removed)
         
-        //--- Set Up xml.docs (overwritten on flow generation)
+        //--- Set Up xml.docs
         xml.docs.onClick { this.docsClick() }
+        tabs.subscribeBy {
+            xml.docs.isChecked = it.firstOrNull() is DocsVG
+        }.until(xml.docs.removed)
         
         //--- Generate End (overwritten on flow generation)
         

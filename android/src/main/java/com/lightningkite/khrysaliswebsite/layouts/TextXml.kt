@@ -1,5 +1,5 @@
 //
-// ArticleXml.kt
+// TextXml.kt
 // Created by Khrysalis XML Android
 //
 package com.lightningkite.khrysaliswebsite.layouts
@@ -9,24 +9,20 @@ import android.view.*
 import com.lightningkite.khrysalis.views.*
 import com.lightningkite.khrysaliswebsite.R
 
-class ArticleXml {
+class TextXml {
 
-    lateinit var title: TextView
-    lateinit var subtitle: TextView
-    lateinit var content: LinearLayout
+    lateinit var content: TextView
     
     
     lateinit var xmlRoot: View
 
     fun setup(dependency: ViewDependency): View {
-        val view = LayoutInflater.from(dependency.context).inflate(R.layout.article, null, false)
+        val view = LayoutInflater.from(dependency.context).inflate(R.layout.text, null, false)
         return setup(view)
     }
     fun setup(view: View): View {
         xmlRoot = view
-        title = view.findViewById<TextView>(R.id.title)
-        subtitle = view.findViewById<TextView>(R.id.subtitle)
-        content = view.findViewById<LinearLayout>(R.id.content)
+        content = view.findViewById<TextView>(R.id.content)
         
         
         

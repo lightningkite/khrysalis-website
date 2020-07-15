@@ -9,4 +9,19 @@
     <string name="documentation">Documentation</string>
     <string name="filter">Filter</string>
     <string name="back">Back</string>
+    <string name="see_on_github">See on GitHub</string>
+    <string name="home_main">Make an Android App and Convert it to iOS and Web</string>
+    <string name="home_sub">Converted output is clean, readable, native code</string>
+    <string name="open_in_github">Open in GitHub</string>
+    <string name="gplv3_commercial">GPLv3/Commercial</string>
+    <string name="code_translation">Code Translation</string>
+    <string name="code_translation_description">The code is translated from Kotlin to Swift and Typescript, resulting in an easily readable copy of your program for the destination platform.</string>
+    <string name="built_in_features">Built-in Features</string>
+    <string name="direct_integration">Direct Integration</string>
+    <string name="direct_integration_description">Because your code is directly translated, you can easily use platform-specific libraries. Just write a file for each non-Android platform describing the equivalents for the other platforms!</string>
+    <string name="current_status">Current Status</string>
+    <string name="current_status_description">This project is in early public beta, but is actively being used in Lightning Kite\'s commercial projects. We\'re happy to help you as best we can!</string>
+    <string name="get_started">Get Started</string>
+    <string name="get_started_description">This website has a full tutorial for trying it out, as well as documentation for each features. The libraries are also documented using standard KDoc comments.</string>
+    <string name="tutorial">Tutorial</string>
 </resources>

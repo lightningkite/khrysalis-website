@@ -13,14 +13,16 @@ import com.lightningkite.khrysalis.*
 import com.lightningkite.khrysalis.views.*
 import com.lightningkite.khrysalis.observables.*
 import com.lightningkite.khrysalis.observables.binding.*
+import com.lightningkite.khrysalis.views.geometry.AlignPair
 import com.lightningkite.khrysaliswebsite.R
 import com.lightningkite.khrysaliswebsite.layouts.*
+import com.lightningkite.khrysaliswebsite.models.Article
 
 //--- Name (overwritten on flow generation)
 @Suppress("NAME_SHADOWING")
 class ArticleVG(
     //--- Dependencies (overwritten on flow generation)
-    @unowned val stack: ObservableStack<ViewGenerator>
+    val article: Article
     //--- Extends (overwritten on flow generation)
 ) : ViewGenerator() {
     
@@ -33,11 +35,17 @@ class ArticleVG(
         val xml = ArticleXml()
         val view = xml.setup(dependency)
         
-        //--- Set Up xml.question (overwritten on flow generation)
-        xml.question.bindString(ConstantObservableProperty("This is my really long and wandering question please help?"))
+        //--- Set Up xml.title
+        xml.title.text = article.title
         
-        //--- Set Up xml.content (overwritten on flow generation)
+        //--- Set Up xml.subtitle
+        xml.subtitle.text = article.subtitle
         
+        //--- Set Up xml.content
+        for(part in article.parts){
+            xml.content.addView(part.generate(dependency), xml.content.params(gravity = AlignPair.topFill))
+        }
+
         //--- Generate End (overwritten on flow generation)
         
         return view

@@ -1,5 +1,5 @@
 //
-// ComponentRowQuestionXml.kt
+// CodeSnippetXml.kt
 // Created by Khrysalis XML Android
 //
 package com.lightningkite.khrysaliswebsite.layouts
@@ -9,22 +9,20 @@ import android.view.*
 import com.lightningkite.khrysalis.views.*
 import com.lightningkite.khrysaliswebsite.R
 
-class ComponentRowQuestionXml {
+class CodeSnippetXml {
 
-    lateinit var container: LinearLayout
-    lateinit var question: TextView
+    lateinit var content: TextView
     
     
     lateinit var xmlRoot: View
 
     fun setup(dependency: ViewDependency): View {
-        val view = LayoutInflater.from(dependency.context).inflate(R.layout.component_row_question, null, false)
+        val view = LayoutInflater.from(dependency.context).inflate(R.layout.code_snippet, null, false)
         return setup(view)
     }
     fun setup(view: View): View {
         xmlRoot = view
-        container = view.findViewById<LinearLayout>(R.id.container)
-        question = view.findViewById<TextView>(R.id.question)
+        content = view.findViewById<TextView>(R.id.content)
         
         
         

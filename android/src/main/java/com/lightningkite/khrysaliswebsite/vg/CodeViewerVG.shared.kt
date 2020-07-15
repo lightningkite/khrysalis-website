@@ -1,5 +1,5 @@
 //
-// FaqVG.swift
+// CodeViewerVG.swift
 // Created by Khrysalis Prototype Generator
 // Sections of this file can be replaces if the marker, '(overwritten on flow generation)', is left in place.
 //
@@ -10,65 +10,64 @@ package com.lightningkite.khrysaliswebsite.vg
 import android.widget.*
 import android.view.*
 import com.lightningkite.khrysalis.*
+import com.lightningkite.khrysalis.net.HttpClient
+import com.lightningkite.khrysalis.net.readText
 import com.lightningkite.khrysalis.views.*
 import com.lightningkite.khrysalis.observables.*
 import com.lightningkite.khrysalis.observables.binding.*
 import com.lightningkite.khrysaliswebsite.R
 import com.lightningkite.khrysaliswebsite.layouts.*
-import com.lightningkite.khrysaliswebsite.models.Article
-import com.lightningkite.khrysaliswebsite.models.Articles
+import io.reactivex.Observable
 
 //--- Name (overwritten on flow generation)
 @Suppress("NAME_SHADOWING")
-class FaqVG(
+class CodeViewerVG(
     //--- Dependencies (overwritten on flow generation)
-    @unowned val stack: ObservableStack<ViewGenerator>
+    val files: List<String>
     //--- Extends (overwritten on flow generation)
 ) : ViewGenerator() {
     
     
     //--- Properties
-    val filter = StandardObservableProperty("")
-    
+    val currentFile = StandardObservableProperty(files.first())
+
     //--- Title (overwritten on flow generation)
-    override val title: String get() = "Faq"
+    override val title: String get() = "Code Viewer"
     
     //--- Generate Start (overwritten on flow generation)
     override fun generate(dependency: ViewDependency): View {
-        val xml = FaqXml()
+        val xml = CodeViewerXml()
         val view = xml.setup(dependency)
         
-        //--- Set Up xml.filter
-        xml.filter.bindString(filter)
-        
-        //--- Set Up xml.questions
-        xml.questions.bind(
-            data = filter.map { f ->
-                val parts = f.split(' ')
-                Articles.faq.filter { parts.all { part -> it.contains(part) } }
-            },
-            defaultValue = Article.empty,
-            makeView = label@ { observable ->
-                //--- Make Subview For xml.questions
-                val cellVg = RowArticleVG(articleObservable = observable, stack = this.stack)
-                val cellView = cellVg.generate(dependency)
-                //--- End Make Subview For xml.questions (overwritten on flow generation)
-                return@label cellView
-            }
+        //--- Set Up xml.codeTabs
+        xml.codeTabs.bind(files, currentFile) { it.substringAfterLast('/') }
+
+        //--- Set Up xml.content
+        xml.content.bindString(
+            currentFile.observableNN
+                .flatMap { HttpClient.call(it).readText().toObservable() }
+                .onErrorResumeNext { it: Throwable -> return@onErrorResumeNext Observable.just(it.message) }
+                .asObservableProperty("Loading...")
         )
-        
+
+        //--- Set Up xml.github
+        xml.github.onClick {
+            dependency.openUrl(currentFile.value)
+        }
+
         //--- Generate End (overwritten on flow generation)
         
         return view
     }
     
     //--- Init
-    
+
     init {
-    //--- Init End
+        //--- Init End
     }
-    
+
     //--- Actions
-    
+
+    //--- Action githubClick
     //--- Body End
 }

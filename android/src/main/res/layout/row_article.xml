@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             tools:requires="articleObservable: ObservableProperty[Article]">
+
+    <LinearLayout
+            android:id="@+id/container"
+            tools:goTo="@layout/article"
+            tools:provides="article: Article"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="8dp"
+            android:padding="8dp"
+            android:background="@drawable/card_background"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+        <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            <TextView
+                    style="@style/SubTitle"
+                    android:gravity="start|center_vertical"
+                    android:id="@+id/title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="Learn how to slap people really hard"/>
+
+            <TextView
+                    style="@style/Subtext"
+                    android:gravity="start|center_vertical"
+                    android:id="@+id/subtitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="We know it\'s really what you want."/>
+        </LinearLayout>
+
+        <ImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/ic_chevron_right"
+                android:tint="@color/colorAccent"/>
+    </LinearLayout>
+</FrameLayout>

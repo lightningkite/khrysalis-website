@@ -29,7 +29,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
-                    android:text="Make an Android App and Convert it to iOS and Web"/>
+                    android:text="@string/home_main"/>
 
             <TextView
                     style="@style/SubTitle"
@@ -37,7 +37,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
-                    android:text="Converted output is clean, readable, native code"/>
+                    android:text="@string/home_sub"/>
 
             <Space
                     android:layout_width="64dp"
@@ -69,13 +69,13 @@
                             style="@style/ButtonText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Open in GitHub"/>
+                            android:text="@string/open_in_github"/>
 
                     <TextView
                             style="@style/ButtonTextSub"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="GPLv3/Commercial"/>
+                            android:text="@string/gplv3_commercial"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -100,12 +100,12 @@
                 style="@style/Title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                android:text="Code Translation"/>
+                android:text="@string/code_translation"/>
             <TextView
                 style="@style/Body"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                android:text="The code is translated from Kotlin to Swift and Typescript, resulting in an easily readable copy of your program for the destination platform."/>
+                android:text="@string/code_translation_description"/>
         </LinearLayout>
 
         <LinearLayout
@@ -121,7 +121,7 @@
                 style="@style/Title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                android:text="Built-in Features"/>
+                android:text="@string/built_in_features"/>
 
             <LinearLayout
                     android:id="@+id/feature_list"
@@ -152,12 +152,12 @@
                     style="@style/Title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Direct Integration"/>
+                    android:text="@string/direct_integration"/>
             <TextView
                     style="@style/Body"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Because your code is directly translated, you can easily use platform-specific libraries.  Just write a file for each non-Android platform describing the equivalents for the other platforms!"/>
+                    android:text="@string/direct_integration_description"/>
         </LinearLayout>
 
         <LinearLayout
@@ -177,12 +177,12 @@
                     style="@style/Title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Current Status"/>
+                    android:text="@string/current_status"/>
             <TextView
                     style="@style/Body"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="This project is in early public beta, but is actively being used in Lightning Kite\'s commercial projects.  We're happy to help you as best we can!"/>
+                    android:text="@string/current_status_description"/>
         </LinearLayout>
 
         <LinearLayout
@@ -201,12 +201,12 @@
                     style="@style/Title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Get Started"/>
+                    android:text="@string/get_started"/>
             <TextView
                     style="@style/Body"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="This website has a full tutorial for trying it out, as well as documentation for each features.  The libraries are also documented using standard KDoc comments."/>
+                    android:text="@string/get_started_description"/>
             <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -218,7 +218,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="8dp"
-                        android:text="Tutorial"/>
+                        android:text="@string/tutorial"/>
                 <Button
                         android:id="@+id/docs"
                         style="@style/Button"

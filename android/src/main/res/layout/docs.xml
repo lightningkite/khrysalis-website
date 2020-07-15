@@ -52,6 +52,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            tools:listitem="@layout/component_row_question"/>
+            tools:provides="articleObservable: ObservableProperty[Article]"
+            tools:listitem="@layout/row_article"/>
 
 </LinearLayout>

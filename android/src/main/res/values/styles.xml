@@ -29,8 +29,21 @@
     </style>
 
     <style name="Body">
-        <item name="android:textSize">16sp</item>m>
+        <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/foreground</item>
+    </style>
+
+    <style name="Subtext">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/foregroundFade</item>
+    </style>
+
+    <style name="Code">
+        <item name="android:textSize">16sp</item>
+        <item name="android:padding">8dp</item>
+        <item name="android:textColor">@color/foreground</item>
+        <item name="android:background">@color/backgroundHighlight</item>
+        <item name="android:fontFamily">serif-monospace</item>
     </style>
 
     <style name="ButtonText">
@@ -43,6 +56,18 @@
     <style name="Button" parent="ButtonText">
         <item name="android:background">@drawable/button_background</item>
         <item name="android:padding">8dp</item>
+    </style>
+
+    <style name="ButtonImportant" parent="ButtonText">
+        <item name="android:background">@drawable/important_button_background</item>
+        <item name="android:padding">8dp</item>
+        <item name="android:textColor">@color/foregroundBar</item>
+    </style>
+
+    <style name="ButtonImportantSmall" parent="ButtonImportant">
+        <item name="android:maxHeight">0dp</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:padding">4dp</item>
     </style>
 
     <style name="ButtonTextSub">
