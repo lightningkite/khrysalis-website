@@ -25,7 +25,8 @@ class DocsVG(
     @unowned val stack: ObservableStack<ViewGenerator>
     //--- Extends (overwritten on flow generation)
 ) : ViewGenerator() {
-
+    
+    
     //--- Properties
     val filter = StandardObservableProperty("")
     
@@ -36,7 +37,7 @@ class DocsVG(
     override fun generate(dependency: ViewDependency): View {
         val xml = DocsXml()
         val view = xml.setup(dependency)
-
+        
         //--- Set Up xml.filter
         xml.filter.bindString(filter)
         

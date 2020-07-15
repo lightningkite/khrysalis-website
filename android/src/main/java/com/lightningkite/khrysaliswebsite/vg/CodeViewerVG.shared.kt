@@ -17,49 +17,58 @@ import com.lightningkite.khrysalis.observables.*
 import com.lightningkite.khrysalis.observables.binding.*
 import com.lightningkite.khrysaliswebsite.R
 import com.lightningkite.khrysaliswebsite.layouts.*
+import com.lightningkite.khrysaliswebsite.models.GitHubFile
 import io.reactivex.Observable
 
 //--- Name (overwritten on flow generation)
 @Suppress("NAME_SHADOWING")
 class CodeViewerVG(
     //--- Dependencies (overwritten on flow generation)
-    val files: List<String>
+    val files: List<GitHubFile>
     //--- Extends (overwritten on flow generation)
 ) : ViewGenerator() {
-    
-    
+
+
     //--- Properties
     val currentFile = StandardObservableProperty(files.first())
+    val contents = files.associate { it to HttpClient.call(it.raw)
+        .readText()
+        .cache()
+    }
 
     //--- Title (overwritten on flow generation)
     override val title: String get() = "Code Viewer"
-    
+
     //--- Generate Start (overwritten on flow generation)
     override fun generate(dependency: ViewDependency): View {
         val xml = CodeViewerXml()
         val view = xml.setup(dependency)
-        
+
         //--- Set Up xml.codeTabs
-        xml.codeTabs.bind(files, currentFile) { it.substringAfterLast('/') }
+        xml.codeTabs.bind(files, currentFile) { it.path.substringAfterLast('/') }
 
         //--- Set Up xml.content
         xml.content.bindString(
             currentFile.observableNN
-                .flatMap { HttpClient.call(it).readText().toObservable() }
-                .onErrorResumeNext { it: Throwable -> return@onErrorResumeNext Observable.just(it.message) }
+                .switchMap {
+                    contents[it]!!
+                        .toObservable()
+                        .startWith("Loading...")
+                        .onErrorResumeNext { it: Throwable -> return@onErrorResumeNext Observable.just(it.message) }
+                }
                 .asObservableProperty("Loading...")
         )
 
         //--- Set Up xml.github
         xml.github.onClick {
-            dependency.openUrl(currentFile.value)
+            dependency.openUrl(currentFile.value.html)
         }
 
         //--- Generate End (overwritten on flow generation)
-        
+
         return view
     }
-    
+
     //--- Init
 
     init {

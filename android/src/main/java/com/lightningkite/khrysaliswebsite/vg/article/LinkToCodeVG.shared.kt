@@ -1,9 +1,9 @@
 //
-// ArticleVG.swift
+// LinkToCodeVG.swift
 // Created by Khrysalis Prototype Generator
 // Sections of this file can be replaces if the marker, '(overwritten on flow generation)', is left in place.
 //
-package com.lightningkite.khrysaliswebsite.vg
+package com.lightningkite.khrysaliswebsite.vg.article
 
 //--- Imports
 
@@ -13,44 +13,34 @@ import com.lightningkite.khrysalis.*
 import com.lightningkite.khrysalis.views.*
 import com.lightningkite.khrysalis.observables.*
 import com.lightningkite.khrysalis.observables.binding.*
-import com.lightningkite.khrysalis.views.geometry.AlignPair
 import com.lightningkite.khrysaliswebsite.R
 import com.lightningkite.khrysaliswebsite.layouts.*
-import com.lightningkite.khrysaliswebsite.models.Article
-import com.lightningkite.khrysaliswebsite.vg.article.ContentViewGenerator
+import com.lightningkite.khrysaliswebsite.models.GitHubFile
+import com.lightningkite.khrysaliswebsite.vg.CodeViewerVG
 
 //--- Name (overwritten on flow generation)
 @Suppress("NAME_SHADOWING")
-class ArticleVG(
+class LinkToCodeVG(
     //--- Dependencies (overwritten on flow generation)
-    val article: Article,
-    @unowned val stack: ObservableStack<ViewGenerator>
-    //--- Extends (overwritten on flow generation)
-) : ViewGenerator() {
+    val files: List<GitHubFile>,
+    val label: String
+    //--- Extends
+) : ContentViewGenerator() {
     
+    //--- Provides stack
     
-    //--- Title
-    override val title: String get() = article.title
+    //--- Title (overwritten on flow generation)
+    override val title: String get() = "Link To Code"
     
     //--- Generate Start (overwritten on flow generation)
     override fun generate(dependency: ViewDependency): View {
-        val xml = ArticleXml()
+        val xml = LinkToCodeXml()
         val view = xml.setup(dependency)
         
-        //--- Set Up xml.title
-        xml.title.text = article.title
-        
-        //--- Set Up xml.subtitle
-        xml.subtitle.text = article.subtitle
-        
         //--- Set Up xml.content
-        for(part in article.parts){
-            if(part is ContentViewGenerator){
-                part.stack = this.stack
-            }
-            xml.content.addView(part.generate(dependency), xml.content.params(gravity = AlignPair.topFill))
-        }
-
+        xml.content.text = label
+        xml.content.onClick { this.contentClick() }
+        
         //--- Generate End (overwritten on flow generation)
         
         return view
@@ -64,6 +54,10 @@ class ArticleVG(
     
     //--- Actions
     
+    //--- Action contentClick
+    fun contentClick() {
+        stack.push(CodeViewerVG(files))
+    }
     
     //--- Body End
 }

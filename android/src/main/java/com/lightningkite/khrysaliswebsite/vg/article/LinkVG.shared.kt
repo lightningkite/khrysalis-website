@@ -3,7 +3,7 @@
 // Created by Khrysalis Prototype Generator
 // Sections of this file can be replaces if the marker, '(overwritten on flow generation)', is left in place.
 //
-package com.lightningkite.khrysaliswebsite.vg
+package com.lightningkite.khrysaliswebsite.vg.article
 
 //--- Imports
 

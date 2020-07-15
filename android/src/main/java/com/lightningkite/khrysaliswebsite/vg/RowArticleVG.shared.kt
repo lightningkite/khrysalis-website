@@ -59,7 +59,7 @@ class RowArticleVG(
     
     //--- Action containerClick
     fun containerClick() {
-        stack.push(ArticleVG(article = articleObservable.value))
+        stack.push(ArticleVG(article = articleObservable.value, stack = stack))
     }
     
     //--- Body End
