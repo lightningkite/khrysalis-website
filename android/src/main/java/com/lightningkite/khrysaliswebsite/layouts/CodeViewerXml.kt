@@ -14,6 +14,7 @@ class CodeViewerXml {
     lateinit var codeTabs: com.google.android.material.tabs.TabLayout
     lateinit var content: TextView
     lateinit var github: Button
+    lateinit var textSizeBar: SeekBar
     
     
     lateinit var xmlRoot: View
@@ -27,6 +28,7 @@ class CodeViewerXml {
         codeTabs = view.findViewById<com.google.android.material.tabs.TabLayout>(R.id.codeTabs)
         content = view.findViewById<TextView>(R.id.content)
         github = view.findViewById<Button>(R.id.github)
+        textSizeBar = view.findViewById<SeekBar>(R.id.textSizeBar)
         
         
         

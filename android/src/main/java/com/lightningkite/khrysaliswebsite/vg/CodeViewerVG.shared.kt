@@ -15,6 +15,8 @@ import com.lightningkite.khrysalis.net.readText
 import com.lightningkite.khrysalis.views.*
 import com.lightningkite.khrysalis.observables.*
 import com.lightningkite.khrysalis.observables.binding.*
+import com.lightningkite.khrysalis.rx.removed
+import com.lightningkite.khrysalis.rx.until
 import com.lightningkite.khrysaliswebsite.R
 import com.lightningkite.khrysaliswebsite.layouts.*
 import com.lightningkite.khrysaliswebsite.models.GitHubFile
@@ -27,8 +29,8 @@ class CodeViewerVG(
     val files: List<GitHubFile>
     //--- Extends (overwritten on flow generation)
 ) : ViewGenerator() {
-
-
+    
+    
     //--- Properties
     val currentFile = StandardObservableProperty(files.first())
     val contents = files.associate { it to HttpClient.call(it.raw)
@@ -36,18 +38,25 @@ class CodeViewerVG(
         .cache()
     }
 
+    companion object {
+        val textSize = StandardObservableProperty(12)
+    }
+
     //--- Title (overwritten on flow generation)
     override val title: String get() = "Code Viewer"
-
+    
     //--- Generate Start (overwritten on flow generation)
     override fun generate(dependency: ViewDependency): View {
         val xml = CodeViewerXml()
         val view = xml.setup(dependency)
-
+        
         //--- Set Up xml.codeTabs
         xml.codeTabs.bind(files, currentFile) { it.path.substringAfterLast('/') }
 
         //--- Set Up xml.content
+        textSize.subscribeBy {
+            xml.content.textSize = it.toFloat()
+        }.until(xml.content.removed)
         xml.content.bindString(
             currentFile.observableNN
                 .switchMap {
@@ -64,11 +73,14 @@ class CodeViewerVG(
             dependency.openUrl(currentFile.value.html)
         }
 
+        //--- Set Up xml.textSizeBar
+        xml.textSizeBar.bind(6, 24, textSize)
+        
         //--- Generate End (overwritten on flow generation)
-
+        
         return view
     }
-
+    
     //--- Init
 
     init {

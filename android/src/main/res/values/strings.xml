@@ -24,4 +24,5 @@
     <string name="get_started">Get Started</string>
     <string name="get_started_description">This website has a full tutorial for trying it out, as well as documentation for each features. The libraries are also documented using standard KDoc comments.</string>
     <string name="tutorial">Tutorial</string>
+    <string name="text_size">Text Size</string>
 </resources>
